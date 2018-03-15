@@ -1,22 +1,45 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
+import { SplashScreen} from "@ionic-native/splash-screen";
+import { StatusBar} from "@ionic-native/status-bar";
 
-import { HomePage } from '../pages/home/home';
 @Component({
-  templateUrl: 'app.html'
+  template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  @ViewChild(Nav) nav: Nav;
+  rootPage: any;
+
+  constructor(
+    platform: Platform,
+    public nativeStorage: NativeStorage,
+    public splashScreen: SplashScreen,
+    public statusBar: StatusBar
+  ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+
+      statusBar.overlaysWebView(true);
+      statusBar.overlaysWebView(false);
+      statusBar.overlaysWebView(true);
+      statusBar.backgroundColorByHexString("#33000000");
+      // Here we will check if the user is already logged in
+      // because we don't want to ask users to log in each time they open the app
+      this.nativeStorage.getItem('user')
+      .then( (data) => {
+        // user is previously logged and we have his data
+        // we will let him access the app
+        this.nav.push('UserPage');
+        this.splashScreen.hide();
+      }, (error) => {
+        //we don't have the user data so we will ask him to log in
+        this.nav.push('UserPage');
+        this.splashScreen.hide();
+      });
+
+      this.statusBar.styleDefault();
     });
   }
 }
-
