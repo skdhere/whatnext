@@ -4,6 +4,9 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { NavController, LoadingController, IonicPage } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { TwitterConnect } from '@ionic-native/twitter-connect';
+import { Storage } from '@ionic/storage';
+import { Api} from "../../providers/api";
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -12,14 +15,16 @@ import { TwitterConnect } from '@ionic-native/twitter-connect';
 })
 export class LoginPage {
     FB_APP_ID: number = 725261520963213;
-
+    token : any;
     constructor(
         public navCtrl: NavController,
         public fb: Facebook,
         public loadingCtrl: LoadingController,
         public nativeStorage: NativeStorage,
         public googlePlus: GooglePlus,
-        public tw: TwitterConnect
+        public tw: TwitterConnect,
+        public storage:Storage,
+        public api:Api
 
         ) {
         this.fb.browserInit(this.FB_APP_ID, "v2.8");
@@ -39,17 +44,33 @@ export class LoginPage {
 
         //Getting name and gender properties
         this.fb.api("/me?fields=name,gender,email", params)
-        .then((user) => {
-            user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
+                .then((user) => {
+                    user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
 
-            console.log(user);
+                    console.log(user);
+                    this.api.post('login',user)
+                    .map(res => res.json())
+                    .subscribe( data => {
+                        //store data in storage
+                        if (data.success == true) {
+
+                           this.token = data.data['token'];
+                        }
+                        else{
+                          
+                        }
+                    }, error => {
+                     
+        });
+
         //now we have the users info, let's save it in the NativeStorage
         this.nativeStorage.setItem('user',
         {
             name: user.name,
             gender: user.gender,
             picture: user.picture,
-            loginFlag: 'facebook'
+            loginFlag: 'facebook',
+            token :this.token
         })
         .then(() => {
             nav.push('UserPage');

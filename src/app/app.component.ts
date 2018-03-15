@@ -4,10 +4,10 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import { SplashScreen} from "@ionic-native/splash-screen";
 import { StatusBar} from "@ionic-native/status-bar";
-
+// template: 'app.html'
 @Component({
-  template: `app.html`
-})
+ template: `<ion-nav [root]="rootPage"></ion-nav>`
+ })
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
@@ -31,11 +31,11 @@ export class MyApp {
       .then( (data) => {
         // user is previously logged and we have his data
         // we will let him access the app
-        this.nav.push('InterestpagePage');
+        this.nav.setRoot('InterestpagePage');
         this.splashScreen.hide();
       }, (error) => {
         //we don't have the user data so we will ask him to log in
-        this.nav.push('InterestpagePage');
+        this.nav.setRoot('LoginPage');
         this.splashScreen.hide();
       });
 

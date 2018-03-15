@@ -4,7 +4,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import { Api} from "../../providers/api";
 import { Observable } from 'rxjs/Observable';
-
+import { Facebook } from '@ionic-native/facebook';
 /**
  * Generated class for the InterestpagePage page.
  *
@@ -20,7 +20,7 @@ export class InterestpagePage {
 
   interests:Array<any>=[];
   constructor(public navCtrl: NavController, public navParams: NavParams,public api:Api,
-    public storage :Storage, public nativeStorage: NativeStorage) {
+    public storage :Storage, public nativeStorage: NativeStorage,public fb:Facebook) {
   	this.api.post('getInterest', '')
                 .map(res => res.json())
                 .subscribe( data => {
@@ -45,6 +45,18 @@ export class InterestpagePage {
       });
 
       console.log(this.interests);
+  }
+
+  Logout(){
+    var nav = this.navCtrl;
+    this.fb.logout()
+    .then((response) => {
+      //user logged out so we will remove him from the NativeStorage
+      this.nativeStorage.remove('user');
+      nav.pop();
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   ionViewDidLoad() {
