@@ -6,7 +6,7 @@ import { SplashScreen} from "@ionic-native/splash-screen";
 import { StatusBar} from "@ionic-native/status-bar";
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  template: `app.html`
 })
 export class MyApp {
 
@@ -31,11 +31,11 @@ export class MyApp {
       .then( (data) => {
         // user is previously logged and we have his data
         // we will let him access the app
-        this.nav.push('UserPage');
+        this.nav.push('InterestpagePage');
         this.splashScreen.hide();
       }, (error) => {
         //we don't have the user data so we will ask him to log in
-        this.nav.push('UserPage');
+        this.nav.push('InterestpagePage');
         this.splashScreen.hide();
       });
 

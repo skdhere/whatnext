@@ -1,13 +1,25 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="app">
     <ion-title>
       User Details
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+    <ion-list>
+      <ion-list-header>
+        Characters
+      </ion-list-header>
 
-<ion-content *ngIf='userReady'>
+      <ion-item>
+        <ion-label>Sansa Stark</ion-label>
+        <ion-checkbox color="danger" checked="true"></ion-checkbox>
+      </ion-item>
+  </ion-list>
+</ion-content>
+<!-- <ion-content *ngIf='userReady'>
+
   <ion-card>
     <img [src]="user.picture"/>
     <ion-card-content>
@@ -26,4 +38,4 @@
       <button *ngIf="loginType==='twitter'" ion-button block (click)="doTwLogout()">TW Logout</button>
     </ion-col>
   </ion-row>
-</ion-content>
+</ion-content> -->

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="app">
+  	<button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Interests
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <ion-list-header>
+        Characters
+      </ion-list-header>
+
+      <ion-item *ngFor='let value of interests; trackBy: index;'>
+        <ion-label>{{value.display_name}}</ion-label>
+        <!-- checked="true" -->
+        <ion-checkbox color="danger" ></ion-checkbox>
+      </ion-item>
+  </ion-list>
+</ion-content>

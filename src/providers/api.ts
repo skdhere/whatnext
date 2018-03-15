@@ -13,7 +13,7 @@ import { Events } from 'ionic-angular';
  */
 @Injectable()
 export class Api {
-    url: string = 'http://acrefin.com/api/v1';
+    url: string = 'http://localhost/whatnext_server/v1';
     // url: string = 'http://localhost/app/Github/agribridge-api/v1';
     // url: string = 'http://sqoreyard.com/sqyardpanel/rest/v1';
     options: RequestOptions;
@@ -27,7 +27,7 @@ export class Api {
         let myHeaders: Headers = new Headers;
         myHeaders.set('Content-Type', 'application/x-www-form-urlencoded');
        
-        myHeaders.set('Authorization', 'ss');
+        myHeaders.set('Authorization', '');
         this.options = new RequestOptions({ headers: myHeaders });
     }
 
@@ -54,7 +54,7 @@ export class Api {
     }
 
     post(endpoint: string, body: any, ex_options?: any) {
-        this.setHeaders();
+        // this.setHeaders();
         let params = new URLSearchParams();
         for(let key in body){
             if(Array.isArray(body[key])){
@@ -73,7 +73,7 @@ export class Api {
             }
         }
 
-        // console.log(params);
+        console.log(params);
         this.httpCallRequested();
         return this.http.post(this.url + '/' + endpoint, params, this.options)
         .finally(() => {

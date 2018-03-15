@@ -30,7 +30,7 @@ export class UserPage {
   ) {
 
 
-       this.api.post('getInterest', '')
+      this.api.post('getInterest', '')
                 .map(res => res.json())
                 .subscribe( data => {
                     //store data in storage
@@ -44,7 +44,7 @@ export class UserPage {
                     console.log(data);
                 }, error => {
                     
-                });
+      });
   }
 
 
