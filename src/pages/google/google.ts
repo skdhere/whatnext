@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Geolocation } from '@ionic-native/geolocation';
 import {
  GoogleMaps,
  GoogleMap,
@@ -28,12 +29,26 @@ export class GooglePage {
   locations:Array<any> = [];
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController,public http:Http, public navParams: NavParams) {
+  current_lat:any;
+  current_lng:any;
+
+  constructor(public navCtrl: NavController,public http:Http, public navParams: NavParams, public geolocation:Geolocation) {
+
+
+
+    this.geolocation.getCurrentPosition().then((resp) => {
+       this.current_lat = resp.coords.latitude;
+       this.current_lng = resp.coords.longitude;
+
+      
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
 
    let types =['train_station','restaurant','bar','atm','gym'];
    types.forEach(element => {
-   
-  	this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=19.0049004,72.8236264&radius=500&type='+element+'&key=%20AIzaSyBg1KqM98DIC8TA1ngpS3luuP1A-_aQsfg').map(res => res.json()).subscribe(data => {
+    console.log(this.current_lat);
+  	this.http.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=19.07598,72.87766&radius=500&type='+element+'&key=%20AIzaSyBg1KqM98DIC8TA1ngpS3luuP1A-_aQsfg').map(res => res.json()).subscribe(data => {
 		    // console.log(data);
 		    //  console.log(data.status);
 		    //   console.log(data.results);
@@ -60,13 +75,14 @@ export class GooglePage {
 
   loadMap() {
 
+    console.log(this.current_lat);
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
           lat: 19.07598,
           lng: 72.87766
         },
-        zoom: 25,
+        zoom: 18,
         tilt: 30
       }
     };
@@ -86,8 +102,8 @@ export class GooglePage {
             let image = {
                 url: this.locations[k].icon,
                 size: {
-                  width: 25,
-                  height: 25
+                  width: 20,
+                  height: 20
                 }
                 // This marker is 20 pixels wide by 32 pixels high.
                
