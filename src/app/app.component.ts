@@ -6,12 +6,13 @@ import { SplashScreen} from "@ionic-native/splash-screen";
 import { StatusBar} from "@ionic-native/status-bar";
 // template: 'app.html'
 @Component({
- template: `<ion-nav [root]="rootPage"></ion-nav>`
+ templateUrl: 'app.html'
  })
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   rootPage: any;
+  pages: Array<{title: string, component: any, icon:string}>;
 
   constructor(
     platform: Platform,
@@ -31,15 +32,29 @@ export class MyApp {
       .then( (data) => {
         // user is previously logged and we have his data
         // we will let him access the app
-        this.nav.setRoot('InterestpagePage');
+        this.nav.push('InterestpagePage');
         this.splashScreen.hide();
       }, (error) => {
         //we don't have the user data so we will ask him to log in
-        this.nav.setRoot('LoginPage');
+        this.nav.push('LoginPage');
         this.splashScreen.hide();
       });
 
       this.statusBar.styleDefault();
     });
+
+     this.pages = [
+            { title: 'Home',       component: 'HomePage',      icon: 'home'},
+            { title: 'My Interest', component: 'MyinterestPage',   icon: 'ios-heart'},
+            // { title: 'Help',       component: 'SlidesPage',    icon: 'help-buoy'},
+        ];
   }
+
+
+ logOut()
+ {
+   this.nativeStorage.remove('user');
+   this.nav.setRoot('LoginPage');
+ }
+
 }

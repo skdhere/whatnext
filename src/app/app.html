@@ -1,20 +1,26 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
+      <ion-toolbar color="app">
+          <ion-title style="font-family: cursive;">whatNext<small class="_version">(Beta v 0.0.1)</small></ion-title>
+      </ion-toolbar>
+      <ion-toolbar class="custom-subheader" color="app">
+          <ion-title>
+                <ion-icon ios="ios-contact" md="ios-contact"></ion-icon> User Name
+          </ion-title>
+      </ion-toolbar>
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item>
-        Home
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon name="{{p.icon}}" item-start></ion-icon>
+          {{p.title}}
       </button>
-      <button ion-item >
-        Friends
+
+      <button menuClose ion-item  (click)="logOut(p)">
+          <ion-icon name="ios-log-out" item-start></ion-icon>
+          Logout
       </button>
-      <button ion-item >
-        Events
-      </button>
+
       <button ion-item Menu>
       </button>
     </ion-list>

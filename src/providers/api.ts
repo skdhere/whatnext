@@ -13,7 +13,7 @@ import { Events } from 'ionic-angular';
  */
 @Injectable()
 export class Api {
-    url: string = 'http://localhost/whatnext_server/v1';
+    url: string = 'http://kumar7.com/whatnext_server/v1';
     // url: string = 'http://localhost/app/Github/agribridge-api/v1';
     // url: string = 'http://sqoreyard.com/sqyardpanel/rest/v1';
     options: RequestOptions;
@@ -40,12 +40,6 @@ export class Api {
                 p.set(k, params[k]);
                 endpoint += "/" + params[k];
             }
-
-
-
-            // Set the search field if we have params and don't already have
-            // a search field set in options.
-            // this.options.search = p;
         }
         this.httpCallRequested();
         return this.http.get(this.url + '/' + endpoint , this.options).finally(() => {
