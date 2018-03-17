@@ -1,3 +1,5 @@
+
+
 <ion-header>
   <ion-toolbar color="app">
   	<button ion-button menuToggle>
@@ -26,7 +28,7 @@
       <ion-item *ngFor='let value of interests; trackBy: index;'>
         <ion-label>{{value.display_name}}</ion-label>
         <!-- checked="true" -->
-        <ion-checkbox color="danger" ></ion-checkbox>
+        <ion-checkbox  [(ngModel)]="value.checked"  value="value.name" (ionChange)="updateCbValue($event)" color="danger" ></ion-checkbox>
       </ion-item>
   </ion-list>
 </ion-content>

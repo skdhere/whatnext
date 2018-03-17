@@ -31,7 +31,17 @@ $colors: (
   app:		  #ff0000
 );
 
+$menu_bg_color:color($colors, secondary);
+$size_small:15px;
+$menu_avatar_text_color:color($colors, secondary);
+$menu_avatar_bg_color:color($colors, secondary);
+$menu_avatar_bg_color:color($colors, secondary);
+$menu_font_color:color($colors, secondary);
+$menu_avatar_font_color:color($colors, secondary);
 
+$menu_avatar_color:color($colors, secondary);
+$size_extrasmall:15px;
+$size_extralarge:15px;
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

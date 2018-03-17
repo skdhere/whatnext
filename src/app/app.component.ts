@@ -1,17 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import { Platform, Nav,MenuController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Storage } from '@ionic/storage';
 import { SplashScreen} from "@ionic-native/splash-screen";
 import { StatusBar} from "@ionic-native/status-bar";
 // template: 'app.html'
+// 
 @Component({
  template: `<ion-nav [root]="rootPage"></ion-nav>`
  })
 export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
-  rootPage: any;
+
+  pages: Array<{title: string,icon:string, component: any}>;
+  rootPage : any = 'PreloadPage';
 
   constructor(
     platform: Platform,
@@ -35,11 +38,15 @@ export class MyApp {
         this.splashScreen.hide();
       }, (error) => {
         //we don't have the user data so we will ask him to log in
-        this.nav.setRoot('LoginPage');
+        this.nav.push('LoginPage');
         this.splashScreen.hide();
       });
 
       this.statusBar.styleDefault();
     });
+
+    this.pages = [
+      { title: 'Dashbaord',icon:'home', component: 'Dashboard' }
+    ];
   }
 }

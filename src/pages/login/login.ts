@@ -73,7 +73,7 @@ export class LoginPage {
             token :this.token
         })
         .then(() => {
-            nav.push('UserPage');
+            nav.setRoot('InterestpagePage');
         },(error) => {
             console.log(error);
         })

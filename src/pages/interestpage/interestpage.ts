@@ -19,6 +19,9 @@ import { Facebook } from '@ionic-native/facebook';
 export class InterestpagePage {
 
   interests:Array<any>=[];
+  checkedInt:Array<any>=[];
+  value:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public api:Api,
     public storage :Storage, public nativeStorage: NativeStorage,public fb:Facebook) {
   	this.api.post('getInterest', '')
@@ -61,6 +64,12 @@ export class InterestpagePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InterestpagePage');
+  }
+
+  updateCbValue(e:any)
+  {
+    console.log(e);
+    console.log(this.value);
   }
 
 }
