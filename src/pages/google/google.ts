@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform } from 'ionic-angular';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -32,18 +32,25 @@ export class GooglePage {
   current_lat:any;
   current_lng:any;
 
-  constructor(public navCtrl: NavController,public http:Http, public navParams: NavParams, public geolocation:Geolocation) {
+  constructor(public navCtrl: NavController,
+              public http:Http,
+              public navParams: NavParams, 
+              public geolocation:Geolocation,
+              public platform :Platform) {
 
-
-
+ console.log(1);
+this.platform.ready().then(() => {
+  console.log(2);
     this.geolocation.getCurrentPosition().then((resp) => {
        this.current_lat = resp.coords.latitude;
        this.current_lng = resp.coords.longitude;
-       this.loadMap();
+       console.log(this.current_lat);
+       this.loadPoint();
       
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+  });
 
    
   }
@@ -51,6 +58,8 @@ export class GooglePage {
   loadPoint()
   {
       let types =['train_station','restaurant','bar','atm','gym'];
+
+
       setTimeout(()=>{
        types.forEach(element => {
         console.log(this.current_lat+ " latitude");
@@ -70,13 +79,20 @@ export class GooglePage {
       },1000);
 
      console.log(this.locations);
+     this.loadMap();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GooglePage');
-    
+    // this.loadPoint();
   }
+
+  ngAfterViewInit() {
+      this.platform.ready().then(() => {
+        // this.loadMap();
+      });
+    }
 
   loadMap() {
 
