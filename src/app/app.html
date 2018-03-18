@@ -1,34 +1,30 @@
-<ion-menu [content]="content" type="overlay"  persistent="true" >
-
-<ion-header>
-  <ion-toolbar>
-    <ion-item no-lines>
-      <ion-avatar item-left>
-        <h2>S</h2>
-      </ion-avatar>
-      <h2>Hello,</h2>
-      <p>Satish</p>
-    </ion-item>
-    <ion-buttons end>
-      <button ion-button icon-only >
-        <ion-icon name="settings"></ion-icon>
+<ion-menu [content]="content">
+  <ion-header>
+      <ion-toolbar color="app">
+          <ion-title style="font-family: cursive;">whatNext<small class="_version"> (Beta v 0.0.1)</small></ion-title>
+      </ion-toolbar>
+      <ion-toolbar class="custom-subheader" color="app">
+          <ion-title>
+                <ion-icon ios="ios-contact" md="ios-contact"></ion-icon> User Name
+          </ion-title>
+      </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-icon name="{{p.icon}}" item-start></ion-icon>
+          {{p.title}}
       </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-list no-lines>
-    <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-      <ion-icon name="{{p.icon}}"></ion-icon>  {{p.title}}
-    </button>
-    <button ion-item *ngFor="let pg of upages" (click)="openuPage(pg)">
-      <ion-icon name="{{pg.icon}}"></ion-icon>  {{pg.title}}
-    </button>
-     
-  </ion-list>
-</ion-content>
+      <button menuClose ion-item  (click)="logOut(p)">
+          <ion-icon name="ios-log-out" item-start></ion-icon>
+          Logout
+      </button>
 
+      <button ion-item Menu>
+      </button>
+    </ion-list>
+  </ion-content>
 </ion-menu>
 
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>

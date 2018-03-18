@@ -8,14 +8,6 @@
     <ion-title>
       Interests
     </ion-title>
-    <!-- <ion-nav-buttons side="right">
-        <button  (click)="Logout()" class="button button-icon">Logout</button>
-    </ion-nav-buttons> -->
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openModal()">
-        <ion-icon name="Logout"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +20,14 @@
       <ion-item *ngFor='let value of interests; trackBy: index;'>
         <ion-label>{{value.display_name}}</ion-label>
         <!-- checked="true" -->
-        <ion-checkbox  [(ngModel)]="value.checked"  value="value.name" (ionChange)="updateCbValue($event)" color="danger" ></ion-checkbox>
+
+        <ion-checkbox  (ionChange)="updateCheckedOptions(value.name, $event)" color="danger" ></ion-checkbox>
+
       </ion-item>
   </ion-list>
+  <ion-fab top right edge>
+    <button (click)="saveInterest()" ion-fab>
+      <ion-icon name="checkmark"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

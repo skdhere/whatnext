@@ -11,6 +11,8 @@ import { TwitterConnect } from '@ionic-native/twitter-connect';
 import { HttpModule } from '@angular/http';
 import { Api } from '../providers/api';
 import { IonicStorageModule } from '@ionic/storage';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 // import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -48,7 +50,9 @@ import { IonicStorageModule } from '@ionic/storage';
     NativeStorage,
     TwitterConnect,
     Storage,
-    Api
+    GoogleMaps,
+    Api,
+    Geolocation
   ]
 })
 export class AppModule {}

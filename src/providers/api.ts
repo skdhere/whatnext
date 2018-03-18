@@ -40,12 +40,6 @@ export class Api {
                 p.set(k, params[k]);
                 endpoint += "/" + params[k];
             }
-
-
-
-            // Set the search field if we have params and don't already have
-            // a search field set in options.
-            // this.options.search = p;
         }
         this.httpCallRequested();
         return this.http.get(this.url + '/' + endpoint , this.options).finally(() => {

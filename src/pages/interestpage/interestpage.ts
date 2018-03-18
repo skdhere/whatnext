@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { Api} from "../../providers/api";
 import { Observable } from 'rxjs/Observable';
 import { Facebook } from '@ionic-native/facebook';
+
 /**
  * Generated class for the InterestpagePage page.
  *
@@ -19,8 +20,12 @@ import { Facebook } from '@ionic-native/facebook';
 export class InterestpagePage {
 
   interests:Array<any>=[];
+
   checkedInt:Array<any>=[];
   value:any;
+
+  chkinterests:Array<any>=[];
+  cbChecked:Array<any>=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public api:Api,
     public storage :Storage, public nativeStorage: NativeStorage,public fb:Facebook) {
@@ -50,16 +55,36 @@ export class InterestpagePage {
       console.log(this.interests);
   }
 
-  Logout(){
-    var nav = this.navCtrl;
-    this.fb.logout()
-    .then((response) => {
-      //user logged out so we will remove him from the NativeStorage
-      this.nativeStorage.remove('user');
-      nav.pop();
-    }, (error) => {
-      console.log(error);
-    });
+  saveInterest()
+  {
+    let int  = this.chkinterests.join(',');
+    let user = this.nativeStorage.getItem('user');
+    console.log(user);
+    this.api.post('getInterest',{"interest":int,'username':user})
+                .map(res => res.json())
+                .subscribe( data => {
+                  console.log(data);
+                  this.navCtrl.push('GooglePage');
+                });
+  }
+
+  get diagnostic() { return JSON.stringify(this.cbChecked); }
+
+  updateCheckedOptions(chBox, event) {
+
+      var cbIdx = this.chkinterests.indexOf(chBox);
+
+      if(event.checked) {
+          if(cbIdx < 0 ){
+               this.chkinterests.push(chBox);
+          }
+        } else {
+          if(cbIdx >= 0 ){
+             this.chkinterests.splice(cbIdx,1);
+          }
+      }
+
+      console.log(this.chkinterests);
   }
 
   ionViewDidLoad() {

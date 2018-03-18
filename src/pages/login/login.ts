@@ -73,7 +73,9 @@ export class LoginPage {
             token :this.token
         })
         .then(() => {
+
             nav.setRoot('InterestpagePage');
+
         },(error) => {
             console.log(error);
         })
@@ -137,7 +139,7 @@ export class LoginPage {
                     loginFlag: 'twitter'
                 }).then(function() 
                 {
-                    nav.push('UserPage');
+                    nav.push('InterestpagePage');
                     loading.dismiss();
                 })
             }, function(error)
